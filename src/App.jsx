@@ -136,7 +136,7 @@ function App() {
           <Input placeholder="Email" />
         </Form.Item>
         <Form.Item
-          name="location"
+          name="city"
           label="Mjesto prebivališta"
           rules={[
             {
@@ -185,6 +185,31 @@ function App() {
       </Checkbox>
 
       <Button type="primary">Generiraj uplatnicu</Button>
+
+      {/* <img
+        style={{ width: 180, height: 60 }}
+        src={generateBarcode({
+          amount: donation?.amount,
+          recipient: {
+            id: "HR101203123",
+            fullName: "Name Surname",
+            companyName: "Company",
+            streetAndHouseNumber: "Ime ulice",
+            city: "Karlovac",
+            postalCode: "47000",
+            IBAN: "HR101203123",
+            modelNumber: "HR00",
+            refNumber: "",
+            purposeCode: "COST",
+          },
+          debtor: {
+            nameSurname: donation?.name + donation.lastName || donation.name,
+            streetAndHouseNumber: invoiceData?.streetAndHouseNumber,
+            postalCodeAndCity: `${invoiceData?.postalCode} ${invoiceData?.city}`,
+          },
+          description: "",
+        })}
+      /> */}
     </>
   );
 }
