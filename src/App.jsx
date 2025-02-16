@@ -18,7 +18,7 @@ import {
 import { Content, Footer } from "antd/es/layout/layout";
 import Paragraph from "antd/es/typography/Paragraph";
 import Title from "antd/es/typography/Title";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { donationOptions, options } from "./enviroment";
 import { generateBarcode } from "./services/HUB30BarCodeService";
 
@@ -33,6 +33,7 @@ function App() {
   };
 
   const [generatedBlob, setGeneratedBlob] = useState(null);
+  const barcodeRef = useRef(null);
 
   const handleSubmit = form => {
     const blob = generateBarcode({
@@ -59,6 +60,12 @@ function App() {
 
     setGeneratedBlob(blob);
   };
+
+  useEffect(() => {
+    if (barcodeRef.current) {
+      barcodeRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [generatedBlob]);
 
   return (
     <Layout className="p-4">
@@ -247,7 +254,7 @@ function App() {
           </div>
 
           {generatedBlob && (
-            <div className="text-center my-8 md:my-16">
+            <div className="text-center my-8 md:my-16" ref={barcodeRef}>
               <Title level={3}>Vaš bar code za uplatu je spreman</Title>
               <Paragraph>
                 Skeniraj barkod unutar bankovne aplikacije i izvrši uplatu.
