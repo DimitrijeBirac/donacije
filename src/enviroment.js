@@ -1,5 +1,3 @@
-export const name = "korisnika";
-export const email = "info@korisnik.com";
 export const options = [
   {
     label: "Privatna osoba",
