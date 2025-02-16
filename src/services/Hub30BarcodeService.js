@@ -1,4 +1,4 @@
-const PDF417 = require("pdf417-generator");
+import * as PDF417 from "pdf417-generator";
 
 function floatToHub30Amount(amount) {
   // Multiply by 100 and round to handle potential floating point precision issues

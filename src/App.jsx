@@ -20,6 +20,7 @@ import Paragraph from "antd/es/typography/Paragraph";
 import Title from "antd/es/typography/Title";
 import { useState } from "react";
 import { donationOptions, options } from "./enviroment";
+import { generateBarcode } from "./services/HUB30BarCodeService";
 
 function App() {
   const [isPrivatePerson, setIsPrivatePerson] = useState(true);
@@ -31,11 +32,39 @@ function App() {
     form.setFieldsValue({ amount: selectedAmount }); // Dynamically update the amount value in the form
   };
 
+  const [generatedBlob, setGeneratedBlob] = useState(null);
+
+  const handleSubmit = form => {
+    const blob = generateBarcode({
+      amount: form?.amount,
+      recipient: {
+        id: "HR101203123",
+        fullName: "Name Surname",
+        companyName: "Company",
+        streetAndHouseNumber: "Ime ulice",
+        city: "Karlovac",
+        postalCode: "47000",
+        IBAN: "HR101203123",
+        modelNumber: "HR00",
+        refNumber: "",
+        purposeCode: "COST",
+      },
+      debtor: {
+        nameSurname: form?.name + form.lastName || form.name,
+        streetAndHouseNumber: form?.streetAndHouseNumber,
+        postalCodeAndCity: `${form?.postalCode} ${form?.city}`,
+      },
+      description: "",
+    });
+
+    setGeneratedBlob(blob);
+  };
+
   return (
-    <Layout>
-      <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+    <Layout className="p-4">
+      <div className="max-w-4xl mx-auto">
         <Content>
-          <Title style={{ margin: "3rem 0" }}>
+          <Title className="my-8 md:!my-12">
             Doniraj za Karlovac po mjeri birača
           </Title>
           <Paragraph>
@@ -58,7 +87,7 @@ function App() {
             </a>
           </Paragraph>
 
-          <div style={{ maxWidth: "700px", margin: "4rem auto" }}>
+          <div className="max-w-2xl my-8 md:my-16 mx-auto">
             <Radio.Group
               block
               options={options}
@@ -66,9 +95,14 @@ function App() {
               defaultValue="Privatna osoba"
               optionType="button"
               buttonStyle="solid"
-              style={{ marginBottom: "2rem" }}
+              className="!mb-10"
             />
-            <Form form={form} layout="vertical" autoComplete="off">
+            <Form
+              form={form}
+              layout="vertical"
+              autoComplete="off"
+              onFinish={handleSubmit}
+            >
               <Form.Item label="Koliko želite donirat?" name="option">
                 <Radio.Group
                   block
@@ -190,64 +224,50 @@ function App() {
               >
                 <Input placeholder="Ulica i kućni broj" />
               </Form.Item>
+              <Space direction="vertical" size={15}>
+                <Checkbox>
+                  * Izjavljujem da se protiv davatelja donacije ne vodi postupak
+                  naplate dospjelih nepodmirenih obveza prema državnom proračunu
+                  odnosno proračunu jedinice samouprave ili zaposlenicima.
+                </Checkbox>
+                <Checkbox>
+                  * Razumijem da prema Zakonu o financiranju političkih
+                  aktivnosti, izborne promidžbe i referenduma, a u svrhu nadzora
+                  financiranja političke promidžbe, Državno izborno povjerenstvo
+                  mora o svim donacijama izvijestiti javnost. Stoga, sukladno
+                  Zakonu, Državno izborno povjerenstvo objavljuje imena i
+                  prezimena donatora, njihov OIB te iznos donacije, a u slučaju
+                  pravnih osoba i adresu sjedišta.
+                </Checkbox>
+              </Space>
+              <Button type="primary" className="mt-8 w-full" htmlType="submit">
+                Generiraj uplatnicu
+              </Button>
             </Form>
-            <Space direction="vertical" size={15}>
-              <Checkbox>
-                * Izjavljujem da se protiv davatelja donacije ne vodi postupak
-                naplate dospjelih nepodmirenih obveza prema državnom proračunu
-                odnosno proračunu jedinice samouprave ili zaposlenicima.
-              </Checkbox>
-              <Checkbox>
-                * Razumijem da prema Zakonu o financiranju političkih
-                aktivnosti, izborne promidžbe i referenduma, a u svrhu nadzora
-                financiranja političke promidžbe, Državno izborno povjerenstvo
-                mora o svim donacijama izvijestiti javnost. Stoga, sukladno
-                Zakonu, Državno izborno povjerenstvo objavljuje imena i
-                prezimena donatora, njihov OIB te iznos donacije, a u slučaju
-                pravnih osoba i adresu sjedišta.
-              </Checkbox>
-            </Space>
-            <Button type="primary" style={{ marginTop: "2rem", width: "100%" }}>
-              Generiraj uplatnicu
-            </Button>
           </div>
 
-          {/* <img
-            style={{ width: 180, height: 60 }}
-            src={generateBarcode({
-              amount: donation?.amount,
-              recipient: {
-                id: "HR101203123",
-                fullName: "Name Surname",
-                companyName: "Company",
-                streetAndHouseNumber: "Ime ulice",
-                city: "Karlovac",
-                postalCode: "47000",
-                IBAN: "HR101203123",
-                modelNumber: "HR00",
-                refNumber: "",
-                purposeCode: "COST",
-              },
-              debtor: {
-                nameSurname: donation?.name + donation.lastName || donation.name,
-                streetAndHouseNumber: invoiceData?.streetAndHouseNumber,
-                postalCodeAndCity: `${invoiceData?.postalCode} ${invoiceData?.city}`,
-              },
-              description: "",
-            })}
-          /> */}
+          {generatedBlob && (
+            <div className="text-center my-8 md:my-16">
+              <Title level={3}>Vaš bar code za uplatu je spreman</Title>
+              <Paragraph>
+                Skeniraj barkod unutar bankovne aplikacije i izvrši uplatu.
+                Hvala što si postao dio prave karlovačke oporbe!
+              </Paragraph>
+              <img className="mt-8 mx-auto" src={generatedBlob} />
+            </div>
+          )}
         </Content>
       </div>
 
-      <Footer style={{ background: "#f0f2f5", padding: "20px" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+      <Footer className="bg-gray-100 p-5">
+        <div className="max-w-5xl mx-auto">
           <Row justify="center" align="middle">
             <Col>
               <a
                 href="https://www.facebook.com/DimitrijeBirac"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ margin: "0 10px", fontSize: "24px" }}
+                className="text-2xl mx-2"
               >
                 <FacebookOutlined />
               </a>
@@ -255,7 +275,7 @@ function App() {
                 href="https://www.instagram.com/dimitrijebirac/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ margin: "0 10px", fontSize: "24px" }}
+                className="text-2xl mx-2"
               >
                 <InstagramOutlined />
               </a>
@@ -263,7 +283,7 @@ function App() {
                 href="https://www.tiktok.com/@dimibirac"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ margin: "0 10px", fontSize: "24px" }}
+                className="text-2xl mx-2"
               >
                 <TikTokOutlined />
               </a>
@@ -271,16 +291,10 @@ function App() {
           </Row>
           <Row justify="center">
             <Col>
-              <p
-                style={{
-                  marginTop: "10px",
-                  fontSize: "14px",
-                  textAlign: "center",
-                }}
-              >
+              <Paragraph className="text-center mt-2" type="secondary">
                 © {new Date().getFullYear()} Dimitrije Birac. All rights
                 reserved.
-              </p>
+              </Paragraph>
             </Col>
           </Row>
         </div>
