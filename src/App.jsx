@@ -125,6 +125,7 @@ function App() {
                 rules={[
                   {
                     required: true,
+                    message: "Molimo unesite iznos u EUR!",
                   },
                 ]}
               >
@@ -141,6 +142,7 @@ function App() {
                   rules={[
                     {
                       required: true,
+                      message: "Molimo unesite naziv!",
                     },
                   ]}
                 >
@@ -155,6 +157,7 @@ function App() {
                     rules={[
                       {
                         required: true,
+                        message: "Molimo unesite ime!",
                       },
                     ]}
                   >
@@ -166,6 +169,7 @@ function App() {
                     rules={[
                       {
                         required: true,
+                        message: "Molimo unesite prezime!",
                       },
                     ]}
                   >
@@ -179,6 +183,7 @@ function App() {
                 rules={[
                   {
                     required: true,
+                    message: "Molimo unesite OIB!",
                   },
                 ]}
               >
@@ -190,6 +195,7 @@ function App() {
                 rules={[
                   {
                     required: true,
+                    message: "Molimo unesite email!",
                   },
                 ]}
               >
@@ -201,6 +207,7 @@ function App() {
                 rules={[
                   {
                     required: true,
+                    message: "Molimo unesite prebivalište!",
                   },
                 ]}
               >
@@ -212,6 +219,7 @@ function App() {
                 rules={[
                   {
                     required: true,
+                    message: "Molimo unesite poštanski broj!",
                   },
                 ]}
               >
@@ -226,27 +234,44 @@ function App() {
                 rules={[
                   {
                     required: true,
+                    message: "Molimo unesite ulicu i kućni broj!",
                   },
                 ]}
               >
                 <Input placeholder="Ulica i kućni broj" />
               </Form.Item>
-              <Space direction="vertical" size={15}>
-                <Checkbox>
-                  * Izjavljujem da se protiv davatelja donacije ne vodi postupak
-                  naplate dospjelih nepodmirenih obveza prema državnom proračunu
-                  odnosno proračunu jedinice samouprave ili zaposlenicima.
-                </Checkbox>
-                <Checkbox>
-                  * Razumijem da prema Zakonu o financiranju političkih
-                  aktivnosti, izborne promidžbe i referenduma, a u svrhu nadzora
-                  financiranja političke promidžbe, Državno izborno povjerenstvo
-                  mora o svim donacijama izvijestiti javnost. Stoga, sukladno
-                  Zakonu, Državno izborno povjerenstvo objavljuje imena i
-                  prezimena donatora, njihov OIB te iznos donacije, a u slučaju
-                  pravnih osoba i adresu sjedišta.
-                </Checkbox>
-              </Space>
+              <Form.Item
+                name="checkboxes"
+                label=""
+                valuePropName="checked"
+                rules={[
+                  {
+                    required: true,
+                    message: "Morate prihvatiti uvjete!",
+                  },
+                ]}
+              >
+                <Checkbox.Group>
+                  <Space direction="vertical" size={15}>
+                    <Checkbox value="checkbox1">
+                      * Izjavljujem da se protiv davatelja donacije ne vodi
+                      postupak naplate dospjelih nepodmirenih obveza prema
+                      državnom proračunu odnosno proračunu jedinice samouprave
+                      ili zaposlenicima.
+                    </Checkbox>
+                    <Checkbox value="checkbox2">
+                      * Razumijem da prema Zakonu o financiranju političkih
+                      aktivnosti, izborne promidžbe i referenduma, a u svrhu
+                      nadzora financiranja političke promidžbe, Državno izborno
+                      povjerenstvo mora o svim donacijama izvijestiti javnost.
+                      Stoga, sukladno Zakonu, Državno izborno povjerenstvo
+                      objavljuje imena i prezimena donatora, njihov OIB te iznos
+                      donacije, a u slučaju pravnih osoba i adresu sjedišta.
+                    </Checkbox>
+                  </Space>
+                </Checkbox.Group>
+              </Form.Item>
+
               <Button type="primary" className="mt-8 w-full" htmlType="submit">
                 Generiraj uplatnicu
               </Button>
