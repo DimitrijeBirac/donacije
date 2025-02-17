@@ -17,7 +17,7 @@ const formatDebtorData = debtor => {
 
 const formatRecipientData = recipient => {
   const {
-    companyName,
+    fullName,
     streetAndHouseNumber,
     postalCode,
     city,
@@ -27,7 +27,7 @@ const formatRecipientData = recipient => {
     purposeCode,
   } = recipient;
 
-  return `${companyName}\n${streetAndHouseNumber}\n${postalCode} ${city}\n${IBAN}\n${modelNumber}\n${refNumber}\n${purposeCode}`;
+  return `${fullName}\n${streetAndHouseNumber}\n${postalCode} ${city}\n${IBAN}\n${modelNumber}\n${refNumber}\n${purposeCode}`;
 };
 
 const formatDataToHub30 = ({ amount, debtor, recipient, description }) => {

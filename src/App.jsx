@@ -39,13 +39,12 @@ function App() {
     const blob = generateBarcode({
       amount: form?.amount,
       recipient: {
-        id: "HR101203123",
-        fullName: "Name Surname",
-        companyName: "Company",
-        streetAndHouseNumber: "Ime ulice",
+        id: "HR5424020063590007565",
+        fullName: "Dimitrije Birač",
+        streetAndHouseNumber: "Trpimirova 3",
         city: "Karlovac",
         postalCode: "47000",
-        IBAN: "HR101203123",
+        IBAN: "HR5424020063590007565",
         modelNumber: "HR00",
         refNumber: "",
         purposeCode: "COST",
@@ -71,7 +70,7 @@ function App() {
     <Layout className="p-4">
       <div className="max-w-4xl mx-auto">
         <Content>
-          <Title className="my-8 md:!my-12">
+          <Title className="my-8 md:!my-12" style={{ fontFamily: "SansBeam" }}>
             Doniraj za Karlovac po mjeri birača
           </Title>
           <Paragraph>
