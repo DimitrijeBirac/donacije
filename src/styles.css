@@ -3,3 +3,38 @@
 body {
   margin: 0;
 }
+
+@font-face {
+  font-family: "SansBaem";
+  src: url("./assets/fonts/SansBeamHead-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SansBaem";
+  src: url("./assets/fonts/SansBeamHead-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SansBaem";
+  src: url("./assets/fonts/SansBeamHead-Italic.otf") format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "SansBaem";
+  src: url("./assets/fonts/SansBeamHead-ExtBold.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SansBaem";
+  src: url("./assets/fonts/SansBeamHead-BoldItalic.otf") format("opentype");
+  font-weight: bold;
+  font-style: italic;
+}
