@@ -69,7 +69,11 @@ function App() {
   return (
     <Layout className="p-4">
       <div className="max-w-4xl mx-auto">
-        <Content>
+        <Content className="text-center">
+          <div className="w-60 mx-auto mt-8">
+            <img src="/logo.svg" alt="Logo" />
+          </div>
+
           <Title className="my-8 md:!my-12" style={{ fontFamily: "SansBeam" }}>
             Donirajte za Karlovac po mjeri birača
           </Title>
@@ -81,10 +85,12 @@ function App() {
           </Paragraph>
           <Paragraph>
             Nakon što ispunite dolje formular, pojavit će se QR kod kojeg možete
-            skenirati sa svojom bankovnom aplikacijom. Sukladno Zakonu o
-            financiranju političkih aktivnosti i izborne promidžbe, objava o
-            donacijama se dijeli s javnosti, no vaše osobne podatke neću
-            koristiti u druge svrhe.
+            skenirati sa svojom bankovnom aplikacijom.
+          </Paragraph>
+          <Paragraph>
+            Sukladno Zakonu o financiranju političkih aktivnosti i izborne
+            promidžbe, objava o donacijama se dijeli s javnosti, no vaše osobne
+            podatke neću koristiti u druge svrhe.
           </Paragraph>
           <Paragraph>
             Ako imate dodatna pitanja, javi se na{" "}
@@ -250,7 +256,7 @@ function App() {
                   },
                 ]}
               >
-                <Checkbox.Group>
+                <Checkbox.Group className="text-left">
                   <Space direction="vertical" size={15}>
                     <Checkbox value="checkbox1">
                       * Izjavljujem da se protiv davatelja donacije ne vodi
