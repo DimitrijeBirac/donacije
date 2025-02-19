@@ -71,23 +71,23 @@ function App() {
       <div className="max-w-4xl mx-auto">
         <Content>
           <Title className="my-8 md:!my-12" style={{ fontFamily: "SansBeam" }}>
-            Doniraj za Karlovac po mjeri birača
+            Donirajte za Karlovac po mjeri birača
           </Title>
           <Paragraph>
-            Svojom donacijom postaješ dio povijesne priče. One koja će
+            Svojom donacijom postajete dio povijesne priče. One koja će
             Karlovčane i razvoj grada staviti ispred osobnih ili stranačkih
-            interesa. Svojom donacijom pomažeš mi da glas onih kojima je
+            interesa. Svojom donacijom pomažete mi da glas onih kojima je
             Karlovac centar svijeta postane prodorniji.
           </Paragraph>
           <Paragraph>
-            Nakon što ispuniš dolje formular, pojavit će se QR kod kojeg možeš
+            Nakon što ispunite dolje formular, pojavit će se QR kod kojeg možete
             skenirati sa svojom bankovnom aplikacijom. Sukladno Zakonu o
             financiranju političkih aktivnosti i izborne promidžbe, objava o
-            donacijama se dijeli s javnosti, no tvoje osobne podatke neću
+            donacijama se dijeli s javnosti, no vaše osobne podatke neću
             koristiti u druge svrhe.
           </Paragraph>
           <Paragraph>
-            Ako imaš dodatna pitanja, javi se na{" "}
+            Ako imate dodatna pitanja, javi se na{" "}
             <a href="mailto:dimitrije.birac@gmail.com">
               dimitrije.birac@gmail.com
             </a>
@@ -109,7 +109,7 @@ function App() {
               autoComplete="off"
               onFinish={handleSubmit}
             >
-              <Form.Item label="Koliko želite donirat?" name="option">
+              <Form.Item label="Koliko želite donirati?" name="option">
                 <Radio.Group
                   block
                   options={donationOptions}
@@ -120,7 +120,7 @@ function App() {
               </Form.Item>
               <Form.Item
                 name="amount"
-                label="Iznos"
+                label="Upiši iznos"
                 rules={[
                   {
                     required: true,
