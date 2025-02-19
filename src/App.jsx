@@ -271,7 +271,12 @@ function App() {
                 </Checkbox.Group>
               </Form.Item>
 
-              <Button type="primary" className="mt-8 w-full" htmlType="submit">
+              <Button
+                type="primary"
+                className="mt-8 w-full"
+                htmlType="submit"
+                disabled
+              >
                 Generiraj uplatnicu
               </Button>
             </Form>
