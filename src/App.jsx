@@ -4,7 +4,6 @@ import {
   TikTokOutlined,
 } from "@ant-design/icons";
 import {
-  Button,
   Checkbox,
   Col,
   Form,
@@ -18,10 +17,10 @@ import {
 import { Content, Footer } from "antd/es/layout/layout";
 import Paragraph from "antd/es/typography/Paragraph";
 import Title from "antd/es/typography/Title";
+import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { donationOptions, options } from "./enviroment";
 import { generateBarcode } from "./services/HUB30BarCodeService";
-import { motion } from "motion/react";
 
 const Email = () => {
   const user = "dimitrije";
@@ -95,10 +94,10 @@ function App() {
 
   return (
     <Layout className=" !bg-slate-50">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto px-5 pt-5">
         <Content>
           <motion.div
-            className="w-60 mx-auto mt-8"
+            className="w-40 md:w-60 mx-auto mt-8"
             initial={{ opacity: 1, scale: 2.6, x: 0, y: "100%" }}
             animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
             transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
@@ -112,7 +111,7 @@ function App() {
             <img src="/logo.svg" alt="Logo" />
           </motion.div>
           <motion.h1
-            className="my-8 md:!my-12 !text-5xl"
+            className="my-8 md:!my-12 text-4xl md:text-6xl"
             style={{ fontFamily: "SansBeam" }}
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -127,22 +126,22 @@ function App() {
             animate="visible"
             variants={containerVariants}
           >
-            <motion.p className="!text-base my-5" variants={itemVariants}>
+            <motion.p className="text-base my-5" variants={itemVariants}>
               Svojom donacijom postajete dio povijesne priče. One koja će
               Karlovčane i razvoj grada staviti ispred osobnih ili stranačkih
               interesa. Svojom donacijom pomažete mi da glas onih kojima je
               Karlovac centar svijeta postane prodorniji.
             </motion.p>
-            <motion.p className="!text-base my-5" variants={itemVariants}>
+            <motion.p className="text-base my-5" variants={itemVariants}>
               Nakon što ispunite dolje formular, pojavit će se QR kod kojeg
               možete skenirati sa svojom bankovnom aplikacijom.
             </motion.p>
-            <motion.p className="!text-base my-5" variants={itemVariants}>
+            <motion.p className="text-base my-5" variants={itemVariants}>
               Sukladno Zakonu o financiranju političkih aktivnosti i izborne
               promidžbe, objava o donacijama se dijeli s javnosti, no vaše
               osobne podatke neću koristiti u druge svrhe.
             </motion.p>
-            <motion.p className="!text-base my-5" variants={itemVariants}>
+            <motion.p className="text-base my-5" variants={itemVariants}>
               Ako imate dodatna pitanja, javi se na <Email />
             </motion.p>
 
@@ -330,7 +329,7 @@ function App() {
 
                 <motion.button
                   type="submit"
-                  className="mt-8 w-full bg-emerald-400 text-white py-2 rounded-lg cursor-pointer"
+                  className="mt-4 md:mt-8 w-full bg-emerald-400 text-white py-2 rounded-lg cursor-pointer"
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 1 }}
                 >
@@ -341,19 +340,24 @@ function App() {
           </motion.div>
 
           {generatedBlob && (
-            <div className="text-center my-8 md:my-16" ref={barcodeRef}>
-              <Title level={3}>Vaš bar code za uplatu je spreman</Title>
-              <Paragraph>
+            <div
+              className="text-left md:text-center my-10 md:my-16"
+              ref={barcodeRef}
+            >
+              <Title className="!text-3xl">
+                Vaš bar code za uplatu je spreman!
+              </Title>
+              <Paragraph className="!text-base">
                 Skeniraj barkod unutar bankovne aplikacije i izvrši uplatu.
                 Hvala što si postao dio prave karlovačke oporbe!
               </Paragraph>
-              <img className="mt-8 mx-auto" src={generatedBlob} />
+              <img className="mt-8 mx-auto w-sm" src={generatedBlob} />
             </div>
           )}
         </Content>
       </div>
 
-      <Footer className="!bg-slate-100 p-5">
+      <Footer className="!bg-slate-100">
         <div className="max-w-5xl mx-auto">
           <Row justify="center" align="middle">
             <Col>
