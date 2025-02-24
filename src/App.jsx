@@ -46,7 +46,7 @@ function App() {
         postalCode: "47000",
         IBAN: "HR5424020063590007565",
         modelNumber: "HR00",
-        refNumber: "",
+        refNumber: form.oib,
         purposeCode: "COST",
       },
       debtor: {
@@ -277,12 +277,7 @@ function App() {
                 </Checkbox.Group>
               </Form.Item>
 
-              <Button
-                type="primary"
-                className="mt-8 w-full"
-                htmlType="submit"
-                disabled
-              >
+              <Button type="primary" className="mt-8 w-full" htmlType="submit">
                 Generiraj uplatnicu
               </Button>
             </Form>
