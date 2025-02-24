@@ -6,8 +6,8 @@ import "./styles.css";
 
 const themeConfig = {
   token: {
-    colorPrimary: "#9ce5c6",
-    colorInfo: "#9ce5c6",
+    colorPrimary: "#00d492",
+    colorInfo: "#00d492",
     colorTextBase: "#18183f",
   },
 };

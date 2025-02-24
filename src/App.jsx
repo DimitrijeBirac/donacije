@@ -21,6 +21,33 @@ import Title from "antd/es/typography/Title";
 import { useEffect, useRef, useState } from "react";
 import { donationOptions, options } from "./enviroment";
 import { generateBarcode } from "./services/HUB30BarCodeService";
+import { motion } from "motion/react";
+
+const Email = () => {
+  const user = "dimitrije";
+  const domain = "gmail.com";
+  return (
+    <a href={`mailto:${user}.birac@${domain}`}>
+      {user}.birac@{domain}
+    </a>
+  );
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      delayChildren: 2, // Delays first child animation
+      staggerChildren: 0.3, // Time between each child animation
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+};
 
 function App() {
   const [isPrivatePerson, setIsPrivatePerson] = useState(true);
@@ -67,221 +94,251 @@ function App() {
   }, [generatedBlob]);
 
   return (
-    <Layout className="p-4">
+    <Layout className=" !bg-slate-50">
       <div className="max-w-4xl mx-auto">
-        <Content className="text-center">
-          <div className="w-60 mx-auto mt-8">
+        <Content>
+          <motion.div
+            className="w-60 mx-auto mt-8"
+            initial={{ opacity: 1, scale: 2.6, x: 0, y: "100%" }}
+            animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 0.5 }}
+            onAnimationStart={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+            onAnimationComplete={() =>
+              window.scrollTo({ top: 0, behavior: "smooth" })
+            }
+          >
             <img src="/logo.svg" alt="Logo" />
-          </div>
-
-          <Title className="my-8 md:!my-12" style={{ fontFamily: "SansBeam" }}>
+          </motion.div>
+          <motion.h1
+            className="my-8 md:!my-12 !text-5xl"
+            style={{ fontFamily: "SansBeam" }}
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut", delay: 1.5 }} // Added delay for timing after logo animation
+          >
             Donirajte za Karlovac po mjeri birača
-          </Title>
-          <Paragraph>
-            Svojom donacijom postajete dio povijesne priče. One koja će
-            Karlovčane i razvoj grada staviti ispred osobnih ili stranačkih
-            interesa. Svojom donacijom pomažete mi da glas onih kojima je
-            Karlovac centar svijeta postane prodorniji.
-          </Paragraph>
-          <Paragraph>
-            Nakon što ispunite dolje formular, pojavit će se QR kod kojeg možete
-            skenirati sa svojom bankovnom aplikacijom.
-          </Paragraph>
-          <Paragraph>
-            Sukladno Zakonu o financiranju političkih aktivnosti i izborne
-            promidžbe, objava o donacijama se dijeli s javnosti, no vaše osobne
-            podatke neću koristiti u druge svrhe.
-          </Paragraph>
-          <Paragraph>
-            Ako imate dodatna pitanja, javi se na{" "}
-            <a href="mailto:dimitrije.birac@gmail.com">
-              dimitrije.birac@gmail.com
-            </a>
-          </Paragraph>
+          </motion.h1>
 
-          <div className="max-w-2xl my-8 md:my-16 mx-auto">
-            <Radio.Group
-              block
-              options={options}
-              onChange={() => setIsPrivatePerson(prev => !prev)}
-              defaultValue="Privatna osoba"
-              optionType="button"
-              buttonStyle="solid"
-              className="!mb-10"
-            />
-            <Form
-              form={form}
-              layout="vertical"
-              autoComplete="off"
-              onFinish={handleSubmit}
+          {/* Paragraphs - Staggered Fade-In */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+          >
+            <motion.p className="!text-base my-5" variants={itemVariants}>
+              Svojom donacijom postajete dio povijesne priče. One koja će
+              Karlovčane i razvoj grada staviti ispred osobnih ili stranačkih
+              interesa. Svojom donacijom pomažete mi da glas onih kojima je
+              Karlovac centar svijeta postane prodorniji.
+            </motion.p>
+            <motion.p className="!text-base my-5" variants={itemVariants}>
+              Nakon što ispunite dolje formular, pojavit će se QR kod kojeg
+              možete skenirati sa svojom bankovnom aplikacijom.
+            </motion.p>
+            <motion.p className="!text-base my-5" variants={itemVariants}>
+              Sukladno Zakonu o financiranju političkih aktivnosti i izborne
+              promidžbe, objava o donacijama se dijeli s javnosti, no vaše
+              osobne podatke neću koristiti u druge svrhe.
+            </motion.p>
+            <motion.p className="!text-base my-5" variants={itemVariants}>
+              Ako imate dodatna pitanja, javi se na <Email />
+            </motion.p>
+
+            <motion.div
+              className="max-w-2xl my-8 md:my-16 mx-auto"
+              variants={itemVariants}
             >
-              <Form.Item label="Koliko želite donirati?" name="option">
-                <Radio.Group
-                  block
-                  options={donationOptions}
-                  optionType="button"
-                  buttonStyle="solid"
-                  onChange={handleDonationChange}
-                />
-              </Form.Item>
-              <Form.Item
-                name="amount"
-                label="Upiši iznos"
-                rules={[
-                  {
-                    required: true,
-                    message: "Molimo unesite iznos u EUR!",
-                  },
-                ]}
+              <Radio.Group
+                block
+                options={options}
+                onChange={() => setIsPrivatePerson(prev => !prev)}
+                defaultValue="Privatna osoba"
+                optionType="button"
+                buttonStyle="solid"
+                className="!mb-10"
+              />
+              <Form
+                form={form}
+                layout="vertical"
+                autoComplete="off"
+                onFinish={handleSubmit}
               >
-                <InputNumber
-                  prefix="EUR"
-                  placeholder="Iznos"
-                  style={{ width: "100%" }}
-                />
-              </Form.Item>
-              {!isPrivatePerson && (
+                <Form.Item label="Koliko želite donirati?" name="option">
+                  <Radio.Group
+                    block
+                    options={donationOptions}
+                    optionType="button"
+                    buttonStyle="solid"
+                    onChange={handleDonationChange}
+                  />
+                </Form.Item>
                 <Form.Item
-                  name="name"
-                  label="Naziv"
+                  name="amount"
+                  label="Upiši iznos"
                   rules={[
                     {
                       required: true,
-                      message: "Molimo unesite naziv!",
+                      message: "Molimo unesite iznos u EUR!",
                     },
                   ]}
                 >
-                  <Input placeholder="Naziv" />
+                  <InputNumber
+                    prefix="EUR"
+                    placeholder="Iznos"
+                    style={{ width: "100%" }}
+                  />
                 </Form.Item>
-              )}
-              {isPrivatePerson && (
-                <>
+                {!isPrivatePerson && (
                   <Form.Item
                     name="name"
-                    label="Ime"
+                    label="Naziv"
                     rules={[
                       {
                         required: true,
-                        message: "Molimo unesite ime!",
+                        message: "Molimo unesite naziv!",
                       },
                     ]}
                   >
-                    <Input placeholder="Ime" />
+                    <Input placeholder="Naziv" />
                   </Form.Item>
-                  <Form.Item
-                    name="lastName"
-                    label="Prezime"
-                    rules={[
-                      {
-                        required: true,
-                        message: "Molimo unesite prezime!",
-                      },
-                    ]}
-                  >
-                    <Input placeholder="Prezime" />
-                  </Form.Item>
-                </>
-              )}
-              <Form.Item
-                name="oib"
-                label="OIB"
-                rules={[
-                  {
-                    required: true,
-                    message: "Molimo unesite OIB!",
-                  },
-                ]}
-              >
-                <InputNumber placeholder="OIB" style={{ width: "100%" }} />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[
-                  {
-                    required: true,
-                    message: "Molimo unesite email!",
-                  },
-                ]}
-              >
-                <Input placeholder="Email" />
-              </Form.Item>
-              <Form.Item
-                name="city"
-                label="Mjesto prebivališta"
-                rules={[
-                  {
-                    required: true,
-                    message: "Molimo unesite prebivalište!",
-                  },
-                ]}
-              >
-                <Input placeholder="Mjesto prebivališta" />
-              </Form.Item>
-              <Form.Item
-                name="postalCode"
-                label="Poštanski broj"
-                rules={[
-                  {
-                    required: true,
-                    message: "Molimo unesite poštanski broj!",
-                  },
-                ]}
-              >
-                <InputNumber
-                  placeholder="Poštanski broj"
-                  style={{ width: "100%" }}
-                />
-              </Form.Item>
-              <Form.Item
-                name="streetAndHouseNumber"
-                label="Ulica i kućni broj"
-                rules={[
-                  {
-                    required: true,
-                    message: "Molimo unesite ulicu i kućni broj!",
-                  },
-                ]}
-              >
-                <Input placeholder="Ulica i kućni broj" />
-              </Form.Item>
-              <Form.Item
-                name="checkboxes"
-                label=""
-                valuePropName="checked"
-                rules={[
-                  {
-                    required: true,
-                    message: "Morate prihvatiti uvjete!",
-                  },
-                ]}
-              >
-                <Checkbox.Group className="text-left">
-                  <Space direction="vertical" size={15}>
-                    <Checkbox value="checkbox1">
-                      * Izjavljujem da se protiv davatelja donacije ne vodi
-                      postupak naplate dospjelih nepodmirenih obveza prema
-                      državnom proračunu odnosno proračunu jedinice samouprave
-                      ili zaposlenicima.
-                    </Checkbox>
-                    <Checkbox value="checkbox2">
-                      * Razumijem da prema Zakonu o financiranju političkih
-                      aktivnosti, izborne promidžbe i referenduma, a u svrhu
-                      nadzora financiranja političke promidžbe, Državno izborno
-                      povjerenstvo mora o svim donacijama izvijestiti javnost.
-                      Stoga, sukladno Zakonu, Državno izborno povjerenstvo
-                      objavljuje imena i prezimena donatora, njihov OIB te iznos
-                      donacije, a u slučaju pravnih osoba i adresu sjedišta.
-                    </Checkbox>
-                  </Space>
-                </Checkbox.Group>
-              </Form.Item>
+                )}
+                {isPrivatePerson && (
+                  <>
+                    <Form.Item
+                      name="name"
+                      label="Ime"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Molimo unesite ime!",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Ime" />
+                    </Form.Item>
+                    <Form.Item
+                      name="lastName"
+                      label="Prezime"
+                      rules={[
+                        {
+                          required: true,
+                          message: "Molimo unesite prezime!",
+                        },
+                      ]}
+                    >
+                      <Input placeholder="Prezime" />
+                    </Form.Item>
+                  </>
+                )}
+                <Form.Item
+                  name="oib"
+                  label="OIB"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Molimo unesite OIB!",
+                    },
+                  ]}
+                >
+                  <InputNumber placeholder="OIB" style={{ width: "100%" }} />
+                </Form.Item>
+                <Form.Item
+                  name="email"
+                  label="Email"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Molimo unesite email!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Email" />
+                </Form.Item>
+                <Form.Item
+                  name="city"
+                  label="Mjesto prebivališta"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Molimo unesite prebivalište!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Mjesto prebivališta" />
+                </Form.Item>
+                <Form.Item
+                  name="postalCode"
+                  label="Poštanski broj"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Molimo unesite poštanski broj!",
+                    },
+                  ]}
+                >
+                  <InputNumber
+                    placeholder="Poštanski broj"
+                    style={{ width: "100%" }}
+                  />
+                </Form.Item>
+                <Form.Item
+                  name="streetAndHouseNumber"
+                  label="Ulica i kućni broj"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Molimo unesite ulicu i kućni broj!",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Ulica i kućni broj" />
+                </Form.Item>
+                <Form.Item
+                  name="checkboxes"
+                  label=""
+                  valuePropName="checked"
+                  rules={[
+                    {
+                      required: true,
+                      message: "Morate prihvatiti uvjete!",
+                    },
+                  ]}
+                >
+                  <Checkbox.Group className="text-left">
+                    <Space direction="vertical" size={15}>
+                      <Checkbox value="checkbox1">
+                        * Izjavljujem da se protiv davatelja donacije ne vodi
+                        postupak naplate dospjelih nepodmirenih obveza prema
+                        državnom proračunu odnosno proračunu jedinice samouprave
+                        ili zaposlenicima.
+                      </Checkbox>
+                      <Checkbox value="checkbox2">
+                        * Razumijem da prema Zakonu o financiranju političkih
+                        aktivnosti, izborne promidžbe i referenduma, a u svrhu
+                        nadzora financiranja političke promidžbe, Državno
+                        izborno povjerenstvo mora o svim donacijama izvijestiti
+                        javnost. Stoga, sukladno Zakonu, Državno izborno
+                        povjerenstvo objavljuje imena i prezimena donatora,
+                        njihov OIB te iznos donacije, a u slučaju pravnih osoba
+                        i adresu sjedišta.
+                      </Checkbox>
+                    </Space>
+                  </Checkbox.Group>
+                </Form.Item>
 
-              <Button type="primary" className="mt-8 w-full" htmlType="submit">
-                Generiraj uplatnicu
-              </Button>
-            </Form>
-          </div>
+                <motion.button
+                  type="submit"
+                  className="mt-8 w-full bg-emerald-400 text-white py-2 rounded-lg cursor-pointer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 1 }}
+                >
+                  Generiraj uplatnicu
+                </motion.button>
+              </Form>
+            </motion.div>
+          </motion.div>
 
           {generatedBlob && (
             <div className="text-center my-8 md:my-16" ref={barcodeRef}>
@@ -296,7 +353,7 @@ function App() {
         </Content>
       </div>
 
-      <Footer className="bg-gray-100 p-5">
+      <Footer className="!bg-slate-100 p-5">
         <div className="max-w-5xl mx-auto">
           <Row justify="center" align="middle">
             <Col>
