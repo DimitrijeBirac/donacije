@@ -21,6 +21,7 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { donationOptions, options } from "./enviroment";
 import { generateBarcode } from "./services/HUB30BarCodeService";
+import validators from "./validators";
 
 const Email = () => {
   const user = "dimitrije";
@@ -200,7 +201,7 @@ function App() {
                       },
                     ]}
                   >
-                    <Input placeholder="Naziv" />
+                    <Input placeholder="Naziv" maxLength={255} />
                   </Form.Item>
                 )}
                 {isPrivatePerson && (
@@ -215,7 +216,7 @@ function App() {
                         },
                       ]}
                     >
-                      <Input placeholder="Ime" />
+                      <Input placeholder="Ime" maxLength={255} />
                     </Form.Item>
                     <Form.Item
                       name="lastName"
@@ -227,7 +228,7 @@ function App() {
                         },
                       ]}
                     >
-                      <Input placeholder="Prezime" />
+                      <Input placeholder="Prezime" maxLength={255} />
                     </Form.Item>
                   </>
                 )}
@@ -239,21 +240,40 @@ function App() {
                       required: true,
                       message: "Molimo unesite OIB!",
                     },
+                    {
+                      validator: (_, value) => {
+                        if (validators.isValidOIB(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error("Molimo unesite valjani OIB!")
+                        );
+                      },
+                    },
                   ]}
                 >
-                  <InputNumber placeholder="OIB" style={{ width: "100%" }} />
+                  <InputNumber
+                    placeholder="OIB"
+                    style={{ width: "100%" }}
+                    maxLength={11}
+                  />
                 </Form.Item>
                 <Form.Item
                   name="email"
                   label="Email"
+                  validateTrigger="onBlur"
                   rules={[
                     {
                       required: true,
                       message: "Molimo unesite email!",
                     },
+                    {
+                      type: "email",
+                      message: "Molimo unesite ispravan email!",
+                    },
                   ]}
                 >
-                  <Input placeholder="Email" />
+                  <Input placeholder="Email" maxLength={255} />
                 </Form.Item>
                 <Form.Item
                   name="city"
@@ -265,7 +285,7 @@ function App() {
                     },
                   ]}
                 >
-                  <Input placeholder="Mjesto prebivališta" />
+                  <Input placeholder="Mjesto prebivališta" maxLength={255} />
                 </Form.Item>
                 <Form.Item
                   name="postalCode"
@@ -280,6 +300,7 @@ function App() {
                   <InputNumber
                     placeholder="Poštanski broj"
                     style={{ width: "100%" }}
+                    maxLength={5}
                   />
                 </Form.Item>
                 <Form.Item
@@ -292,7 +313,7 @@ function App() {
                     },
                   ]}
                 >
-                  <Input placeholder="Ulica i kućni broj" />
+                  <Input placeholder="Ulica i kućni broj" maxLength={255} />
                 </Form.Item>
                 <Form.Item
                   name="checkboxes"
