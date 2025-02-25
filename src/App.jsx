@@ -66,7 +66,7 @@ function App() {
       amount: form?.amount,
       recipient: {
         id: "HR5424020063590007565",
-        fullName: "Dimitrije Birač",
+        fullName: "Dimitrije Birac",
         streetAndHouseNumber: "Trpimirova 3",
         city: "Karlovac",
         postalCode: "47000",
@@ -80,7 +80,7 @@ function App() {
         streetAndHouseNumber: form?.streetAndHouseNumber,
         postalCodeAndCity: `${form?.postalCode} ${form?.city}`,
       },
-      description: "",
+      description: "Donacija",
     });
 
     setGeneratedBlob(blob);
@@ -133,8 +133,8 @@ function App() {
               Karlovac centar svijeta postane prodorniji.
             </motion.p>
             <motion.p className="text-base my-5" variants={itemVariants}>
-              Nakon što ispunite dolje formular, pojavit će se QR kod kojeg
-              možete skenirati sa svojom bankovnom aplikacijom.
+              Nakon što ispunite formular, pojavit će se barcod kojeg možete
+              skenirati sa svojom bankovnom aplikacijom.
             </motion.p>
             <motion.p className="text-base my-5" variants={itemVariants}>
               Sukladno Zakonu o financiranju političkih aktivnosti i izborne
@@ -142,7 +142,7 @@ function App() {
               osobne podatke neću koristiti u druge svrhe.
             </motion.p>
             <motion.p className="text-base my-5" variants={itemVariants}>
-              Ako imate dodatna pitanja, javi se na <Email />
+              Ako imate dodatna pitanja, javite se na <Email />
             </motion.p>
 
             <motion.div
@@ -345,11 +345,11 @@ function App() {
               ref={barcodeRef}
             >
               <Title className="!text-3xl">
-                Vaš bar code za uplatu je spreman!
+                Vaš barkod za uplatu je spreman!
               </Title>
               <Paragraph className="!text-base">
-                Skeniraj barkod unutar bankovne aplikacije i izvrši uplatu.
-                Hvala što si postao dio prave karlovačke oporbe!
+                Skenirajte barkod unutar bankovne aplikacije i izvršite uplatu.
+                Hvala što ste postali dio prave karlovačke oporbe!
               </Paragraph>
               <img className="mt-8 mx-auto w-sm" src={generatedBlob} />
             </div>
