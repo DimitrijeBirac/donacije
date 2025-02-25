@@ -323,8 +323,18 @@ function App() {
                   valuePropName="checked"
                   rules={[
                     {
-                      required: true,
-                      message: "Morate prihvatiti uvjete!",
+                      validator: (_, value) => {
+                        if (
+                          Array.isArray(value) &&
+                          value.includes("checkbox1") &&
+                          value.includes("checkbox2")
+                        ) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject(
+                          new Error("Morate prihvatiti oba uvjeta!")
+                        );
+                      },
                     },
                   ]}
                 >
