@@ -134,7 +134,7 @@ function App() {
               Karlovac centar svijeta postane prodorniji.
             </motion.p>
             <motion.p className="text-base my-5" variants={itemVariants}>
-              Nakon što ispunite formular, pojavit će se barcod kojeg možete
+              Nakon što ispunite formular, pojavit će se barkod kojeg možete
               skenirati sa svojom bankovnom aplikacijom.
             </motion.p>
             <motion.p className="text-base my-5" variants={itemVariants}>
@@ -235,6 +235,7 @@ function App() {
                 <Form.Item
                   name="oib"
                   label="OIB"
+                  validateTrigger="onBlur"
                   rules={[
                     {
                       required: true,
@@ -252,9 +253,10 @@ function App() {
                     },
                   ]}
                 >
-                  <InputNumber
+                  <Input
                     placeholder="OIB"
                     style={{ width: "100%" }}
+                    minLength={11}
                     maxLength={11}
                   />
                 </Form.Item>
