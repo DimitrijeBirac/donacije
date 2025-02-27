@@ -113,7 +113,7 @@ function App() {
             <img src="/logo.svg" alt="Logo" />
           </motion.div>
           <motion.h1
-            className="my-8 md:!my-10 text-4xl md:text-6xl"
+            className="my-8 md:!my-10 text-left md:text-center text-4xl md:text-6xl text-pretty font-extrabold"
             style={{ fontFamily: "SansBeam" }}
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
