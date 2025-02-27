@@ -22,6 +22,7 @@ import { useEffect, useRef, useState } from "react";
 import { donationOptions, options } from "./enviroment";
 import { generateBarcode } from "./services/HUB30BarCodeService";
 import validators from "./validators";
+import FacebookEmbed from "./components/FacebookEmbed";
 
 const Email = () => {
   const user = "dimitrije";
@@ -94,8 +95,8 @@ function App() {
   }, [generatedBlob]);
 
   return (
-    <Layout className=" !bg-slate-50">
-      <div className="max-w-4xl mx-auto px-5 pt-5">
+    <Layout className="!bg-slate-50">
+      <div className="max-w-4xl mx-auto px-5">
         <Content>
           <motion.div
             className="w-40 md:w-60 mx-auto mt-8"
@@ -112,7 +113,7 @@ function App() {
             <img src="/logo.svg" alt="Logo" />
           </motion.div>
           <motion.h1
-            className="my-8 md:!my-12 text-4xl md:text-6xl"
+            className="my-8 md:!my-10 text-4xl md:text-6xl"
             style={{ fontFamily: "SansBeam" }}
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
@@ -127,7 +128,14 @@ function App() {
             animate="visible"
             variants={containerVariants}
           >
-            <motion.p className="text-base my-5" variants={itemVariants}>
+            <motion.div variants={itemVariants}>
+              <FacebookEmbed />
+            </motion.div>
+
+            <motion.p
+              className="text-base mb-5 mt-4 md:mt-6"
+              variants={itemVariants}
+            >
               Svojom donacijom postajete dio povijesne priče. One koja će
               Karlovčane i razvoj grada staviti ispred osobnih ili stranačkih
               interesa. Svojom donacijom pomažete mi da glas onih kojima je
