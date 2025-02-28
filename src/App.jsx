@@ -184,7 +184,7 @@ function App() {
                 </Form.Item>
                 <Form.Item
                   name="amount"
-                  label="Upiši iznos"
+                  label="Upiši proizvoljni iznos"
                   rules={[
                     {
                       required: true,

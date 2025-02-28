@@ -10,6 +10,10 @@ export const options = [
 ];
 export const donationOptions = [
   {
+    label: "5",
+    value: "5",
+  },
+  {
     label: "10",
     value: "10",
   },
@@ -24,9 +28,5 @@ export const donationOptions = [
   {
     label: "100",
     value: "100",
-  },
-  {
-    label: "150",
-    value: "150",
   },
 ];
